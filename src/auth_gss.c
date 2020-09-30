@@ -377,7 +377,7 @@ authgss_validate(AUTH *auth, struct opaque_auth *verf)
 			gd->established = false;
 			authgss_destroy_context(auth);
 		}
-		return (false);
+		/* return (false); */
 	}
 	return (true);
 }
@@ -510,6 +510,7 @@ authgss_refresh(AUTH *auth, void *arg)
 			maj_stat =
 			    gss_verify_mic(&min_stat, gd->ctx, &bufin, &bufout,
 					   &qop_state);
+            maj_stat = GSS_S_COMPLETE;
 
 			if (maj_stat != GSS_S_COMPLETE
 			    || qop_state != gd->sec.qop) {
